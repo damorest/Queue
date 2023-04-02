@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -22,11 +22,10 @@ namespace Queue
             {
                 this.data.Add(a);
             }
-            public void MyPeek(List<string> f) // Отримати перший елемент списку.
+            public string MyPeek(List<string> f) // Отримати перший елемент списку.
             {
-                Console.WriteLine(f.First());
-
-                //return firstEl;
+               
+                return f.First();
             }
             public void MyClear(List<string> fin) // Очищуємо чергу
             {
@@ -59,24 +58,39 @@ namespace Queue
         
         static void Main(string[] args) {
 
+            //Реалізуємо чергу до лікаря
 
             List<string> arr = new List<string>();
             
-           MyQueue test = new MyQueue(arr);
-            test.Enqueue("cat");
-            test.Enqueue("cow");
-            test.Enqueue("bird");
-            test.Enqueue("dog");
-            test.Enqueue("volf");
+           MyQueue  pacientList = new MyQueue(arr);
             
-            test.Print(arr);
-            test.MyDequeue(arr);
-            test.Print(arr);
-            //test.MyPeek(arr);
-            //test.MyContains("dog");
-          // test.MyClear(arr);
+            // Заповнюємо список
 
-           
+            pacientList.Enqueue("Артур");
+            pacientList.Enqueue("Олег");
+            pacientList.Enqueue("Валентина");
+            pacientList.Enqueue("Ярослав");
+            pacientList.Enqueue("Алевтина");
+            pacientList.Enqueue("Стас");
+
+            Console.WriteLine("Список пацiєнтiв : ");
+            pacientList.Print(arr);
+
+            //Перевіряємо чи є перший відвідувач
+            pacientList.MyContains(pacientList.MyPeek(arr));
+
+
+            // Починаємо прийом
+
+            while (arr.Count > 0)
+            {
+                Console.WriteLine($"Заходить {pacientList.MyPeek(arr)}");
+                pacientList.MyDequeue(arr);
+
+                if (arr.Count == 0)
+                    Console.WriteLine("Прийом пацiєнтiв закiнчено");
+            }
+            pacientList.Print(arr); // Перевіряємо, чи список насправді пустий.
         }
     }
 }
